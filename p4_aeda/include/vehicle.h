@@ -3,25 +3,31 @@
 
 #include <iostream>
 
-template <class Key>
 class Vehicle {
     private:
         std::string plate;
-        Key k_plate;
+        std::string brand;
+
+
     public:
-    Vehicle(const std::string& plate) : plate(plate) {}
+    Vehicle(const std::string brand, const std::string& plate) : brand(brand), plate(plate) {}
     std::string getPlate() const { return plate; }
     long toKey() const;
+    Vehicle operator%(const Vehicle& v) const;
+    bool operator==(const Vehicle& v) const;
+    std::string getBrand() const { return brand; }
 };
 
-template <class Key>
-long Vehicle<Key>::toKey() const {
+long Vehicle::toKey() const {
     long key = 0;
     for (unsigned i = 0; i < plate.length(); i++) {
         key += plate[i];
     }
-    k_plate = key;
     return key;
+}
+
+bool operator==(const Vehicle& v1, const Vehicle& v2) {
+    return ((v1.getPlate() == v2.getPlate()) && (v1.getBrand() == v2.getBrand()));
 }
 
 

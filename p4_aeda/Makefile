@@ -1,7 +1,8 @@
-#makefile for p4
+# makefile for p4
 # make : compiles the program
 # make clean : removes all .o files
 # make run : runs the program
+# make execute : cleans the directory, compiles the program, and runs the program
 
 p4_exe: src/p4_main.cc
 	g++ -g -o p4_exe src/p4_main.cc

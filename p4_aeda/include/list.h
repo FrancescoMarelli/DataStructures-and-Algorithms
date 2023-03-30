@@ -35,7 +35,8 @@ bool List<Key>::insert(const Key& key) {
     if(search(key)){
         return false;
     } else {
-    keys.push_front(key);
+    //keys.push_front(key);
+    keys.push_back(key);
     return true;
     }
 }
