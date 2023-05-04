@@ -182,10 +182,11 @@ bool AVL<Key>::buscarRama(NodoAVL<Key>* nodo, const Key& k) const {
  */
 template <class Key>
 void AVL<Key>::RotacionII(NodoAVL<Key>*& nodo) {
-
+    #ifdef TRAZA
     std::cout << "Desbalanceo " << std::endl;
     this->operator>>(std::cout);
     std::cout << "Rotación II sobre [" << nodo->getDato() << "]"<< std::endl;
+    #endif // TRAZA
     
     // 
     NodoAVL<Key>* aux = nodo->getIzdoAVL();
@@ -210,10 +211,12 @@ void AVL<Key>::RotacionII(NodoAVL<Key>*& nodo) {
  */
 template <class Key>
 void AVL<Key>::RotacionDD(NodoAVL<Key>* &nodo) {
-        
+
+            #ifdef TRAZA
             std::cout << "Desbalanceo" << std::endl;
             this->operator>>(std::cout);
             std::cout << "Rotación DD sobre [" << nodo->getDato() << "]"<< std::endl;
+            #endif // TRAZA
             
             NodoAVL<Key>* aux = nodo->getDchoAVL();
             nodo->setDcho(aux->getIzdoAVL());
@@ -237,10 +240,12 @@ void AVL<Key>::RotacionDD(NodoAVL<Key>* &nodo) {
  */
 template <class Key>
 void AVL<Key>::RotacionID(NodoAVL<Key>* &nodo) {
-    
+
+        #ifdef TRAZA
         std::cout << "Desbalanceo" << std::endl;
         this->operator>>(std::cout);
         std::cout << "Rotación ID sobre [" << nodo->getDato() << "]"<< std::endl;
+        #endif // TRAZA
         
         NodoAVL<Key>* aux = nodo->getIzdoAVL();
         NodoAVL<Key>* aux2 = aux->getDchoAVL();
@@ -270,10 +275,12 @@ void AVL<Key>::RotacionID(NodoAVL<Key>* &nodo) {
  */
 template <class Key>
 void AVL<Key>::RotacionDI(NodoAVL<Key>* &nodo) {
-        
+
+            #ifdef TRAZA
             std::cout << "Desbalanceo " << std::endl;
             this->operator>>(std::cout);
             std::cout << "Rotación DI sobre [" << nodo->getDato() << "]"<< std::endl;
+            #endif // TRAZA
             
             NodoAVL<Key>* aux = nodo->getDchoAVL();
             NodoAVL<Key>* aux2 = aux->getIzdoAVL();

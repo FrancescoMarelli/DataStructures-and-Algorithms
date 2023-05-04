@@ -13,7 +13,7 @@ void program() {
   int option = 0;  
   long value = 0;
   bool quit = false; 
-  AB<long> *ab;
+  AB<long> *arbol = nullptr;
 
   quit = false;
   while (!quit) {
@@ -33,11 +33,11 @@ void program() {
 
     switch (option) {
       case 1: 
-        ab = new ABB<long>;
+        arbol = new ABB<long>;
         quit = true;
         break;
       case 2:
-        ab = new AVL<long>;
+        arbol = new AVL<long>;
         quit = true;
         break;
       default:
@@ -73,9 +73,9 @@ void program() {
         std::cout << "¿Que clave quieres insertar?" << std::endl;
         std::cout << "→  ";
         std::cin >> value;
-        if (ab->insertar(value)) {
+        if (arbol->insertar(value)) {
           std::cout << "La clave se pudo insertar" << std::endl;
-          ab->operator>>(std::cout); 
+          arbol->operator>>(std::cout); 
         } else {
           std::cout << "La clave no se pudo insertar" << std::endl; 
         }
@@ -85,7 +85,7 @@ void program() {
         std::cout << "¿Que clave quieres buscar?" << std::endl;
         std::cout << "→  ";
         std::cin >> value;
-        if (ab->buscar(value)) {
+        if (arbol->buscar(value)) {
           std::cout << "La clave se encuentra en el arbol binario" << std::endl; 
         } else {
           std::cout << "La clave no se encuentra en el arbol binario" << std::endl; 
@@ -93,20 +93,20 @@ void program() {
         std::cout << std::endl;
         break;
       case 3:
-        ab->inorden();
+        arbol->inorden();
         std::cout << std::endl;
         break;      
       case 4:
-        ab->preorden();
+        arbol->preorden();
         std::cout << std::endl;
         break;
       case 5:
-        ab->postorden();
+        arbol->postorden();
         std::cout << std::endl;
         break;
       case 6:
         quit = true;
-        ab->podarArbol();
+        arbol->podarArbol();
         std::cout << std::endl;
         program();
         break;
@@ -115,7 +115,7 @@ void program() {
     }
   }  
   
-  delete ab;
+  delete arbol;
 }
 
 
