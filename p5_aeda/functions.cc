@@ -7,7 +7,9 @@ int which_algorithm() {
     std::cout << "1. Insertion Sort" << std::endl;
     std::cout << "2. Heap Sort" << std::endl;
     std::cout << "3. Merge Sort" << std::endl;
-    std::cout << "4. Quit" << std::endl;
+    std::cout << "4. Radix Sort" << std::endl;
+    std::cout << "5. Shell Sort" << std::endl;
+    std::cout << "6. Quit" << std::endl;
     int choice;
     std::cin >> choice;
     return choice;
@@ -39,7 +41,7 @@ std::vector<long> gen_seq(int choice, int size) {
         }
     } else if(choice == 2) {        
         for(int i = 0; i < size; i++) 
-            //generare numero random entre 1000 y 9999
+            //generar numero random entre 1000 y 9999
             v[i] = rand() % 9000 + 1000;
     } else {
         std::cout << "Invalid choice" << std::endl;
@@ -47,37 +49,48 @@ std::vector<long> gen_seq(int choice, int size) {
     return v;
 }
 
-void menu( int size, std::vector<long> v) {
+void menu( int size, std::vector<long>& v, bool trace) {
     int choice;
     do {
         choice = which_algorithm();
-
         switch (choice)
         {
         case 1:{
-            Insertion<long> insert(size, v);
+            Insertion<long>insert(size, v, trace);
             insert.Sort();
             insert.print();
             break;
             }
         case 2: {
-            HeapSort<long> heap(size, v);
+            HeapSort<long> heap(size, v, trace);
             heap.Sort();
             heap.print();
             break;
-            }   
+            }
+            
         case 3: {
-            MergeSort<long> merge(size, v);
+            MergeSort<long> merge(size, v, trace);
             merge.Sort();
             merge.print();
             break;
-        }    
-        case 4:
+        }  
+        
+        case 4: {
+            RadixSort<long> radix(size, v,trace);
+            radix.Sort();
+            radix.print();
             break;
+        }
+        case 5: {
+            ShellSort<long> shell(size, v,trace);
+            shell.Sort();
+            shell.print();
+            break;
+        }
         
         default:
             break;
         }
-    } while(choice != 4);
+    } while(choice != 6);
 
 }

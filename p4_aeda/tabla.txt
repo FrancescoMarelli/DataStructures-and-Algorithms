@@ -1,0 +1,7 @@
+Posición 0: 77777 0 0 
+Posición 1: 44447 22221 0 
+Posición 2: 11111 88888 0 
+Posición 3: 11112 44440 55556 
+Posición 4: 12345 11113 22222 
+Posición 5: 0 0 0 
+Posición 6: 33331 0 0 
