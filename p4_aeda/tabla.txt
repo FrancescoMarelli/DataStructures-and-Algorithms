@@ -1,7 +1,7 @@
-Posición 0: 77777 0 0 
-Posición 1: 44447 22221 0 
-Posición 2: 11111 88888 0 
-Posición 3: 11112 44440 55556 
-Posición 4: 12345 11113 22222 
-Posición 5: 0 0 0 
-Posición 6: 33331 0 0 
+Posición 0: 49 0 0 
+Posición 1: 50 1 22 
+Posición 2: 2 23 9 
+Posición 3: 45 17 16 
+Posición 4: 46 0 0 
+Posición 5: 5 33 29 
+Posición 6: 27 41 6 

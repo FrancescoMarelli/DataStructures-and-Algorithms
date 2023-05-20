@@ -9,7 +9,9 @@ int which_algorithm() {
     std::cout << "3. Merge Sort" << std::endl;
     std::cout << "4. Radix Sort" << std::endl;
     std::cout << "5. Shell Sort" << std::endl;
-    std::cout << "6. Quit" << std::endl;
+    std::cout << "6. Selection Sort" << std::endl;
+    std::cout << "7. QuickSort" << std::endl;
+    std::cout << "8.  Quit" << std::endl;
     int choice;
     std::cin >> choice;
     return choice;
@@ -51,6 +53,7 @@ std::vector<long> gen_seq(int choice, int size) {
 
 void menu( int size, std::vector<long>& v, bool trace) {
     int choice;
+    trace = true;
     do {
         choice = which_algorithm();
         switch (choice)
@@ -87,10 +90,24 @@ void menu( int size, std::vector<long>& v, bool trace) {
             shell.print();
             break;
         }
+        case 6:{
+            Selection<long> selection(size, v, trace);
+            selection.Sort();
+            selection.print();
+            break;
+        }
+        case 7: {
+            QuickSort<long> quick(size, v, trace);
+            quick.Sort();
+            quick.print();
+            break;
+        }
+
+            break;
         
         default:
             break;
         }
-    } while(choice != 6);
+    } while(choice != 8);
 
 }

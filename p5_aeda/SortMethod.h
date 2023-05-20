@@ -30,6 +30,8 @@ class SortMethod {
 #include "MergeSort.h"
 #include "RadixSort.h"
 #include "ShellSort.h"
+#include "Selection.h"
+#include "QuickSort.h"
 
 
 

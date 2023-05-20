@@ -152,7 +152,7 @@ void Menu(HashTable<Key>& hashTable) {
                 for(auto& i : aux_key) 
                     dig++;
 
-            if(dig == 7) {
+       
                 if(hashTable.insert(key)) {
                     std::cout << "La clave insertó correctamente"<< std::endl;
                     std::cout << std::endl;
@@ -169,10 +169,7 @@ void Menu(HashTable<Key>& hashTable) {
                     std::cout << "La clave no se pudo insertar en la tabla, el bloque está completo" << std::endl;
                     std::cout << std::endl;
                 }
-            } else {
-                std::cout << "La clave debe ser de 7 dígitos" << std::endl;
-                std::cout << std::endl;
-            }
+          
             
             
         }

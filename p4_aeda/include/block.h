@@ -26,7 +26,7 @@ Block<Key>::Block(const unsigned size) {
     this->size = size;
     this->flag = 0;
     for(unsigned i = 0; i < size; i++)
-        block.push_back(0);
+        block.push_back(Key());
     
 }
 

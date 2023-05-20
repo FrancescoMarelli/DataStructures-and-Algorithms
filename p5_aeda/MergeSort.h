@@ -20,7 +20,9 @@ MergeSort<Key>::MergeSort(unsigned size, std::vector<Key>& seq, bool trace) :
 
 template <class Key>
 void MergeSort<Key>::Sort() {
-    this->seq = MergeSort_algorithm(this->size, this->seq, this->trace);
+    typename std::vector<Key>::iterator ini = this->seq.begin();
+    typename std::vector<Key>::iterator fin = this->seq.end();
+    this->seq = MergeSort_algorithm(this->size, this->seq, ini, fin, this->trace);
 }
 
 

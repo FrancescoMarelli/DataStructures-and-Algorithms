@@ -3,6 +3,39 @@
 #include "SortMethod.h"
 
 
+
+
+/*
+    SelectionSort
+*/
+
+template <typename Key>
+std::vector<Key> SelectionSort(std::vector<Key>& seq, unsigned size, bool trace, int& count) {
+    for (int i = 0; i < size - 1; i++) {
+        int min = i;
+        if(trace == true) std::cout << "Iteration: " << i <<": ";
+        for (int j = i + 1; j < size; j++) {
+            if (seq[j] < seq[min]) {
+                min = j;
+            }
+            count++;
+        }
+        std::swap(seq[min], seq[i]);
+
+        //print
+        count++;
+        if(trace == true) {
+            for (int i = 0; i < size; i++) {
+                std::cout << seq[i] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    std::cout << "Numero de movimientos: " << count << std::endl;
+    return seq;
+}
+
+
 /*
     *  InsertionSort
 */
@@ -10,14 +43,17 @@ template <typename Key>
 std::vector<Key> InsertionSort(std::vector<Key>& seq, unsigned size, bool trace, int& count) {
     for (int i = 1; i < size; i++) {
         int x = seq[i];
-        int j = i - 1;
+        int j = i;
         if(trace == true) std::cout << "Iteration: " << i <<": ";
-        while (seq[j] > x && j >= 0) {
-            seq[j + 1] = seq[j];
+        while (seq[j-1] > x && j > 0) {
+            seq[j] = seq[j-1];
             j--;
             count++;
         }
-        seq[j + 1] = x;
+        seq[j] = x;
+
+
+        //print
         count++;
 
         if(trace == true) {
@@ -88,61 +124,58 @@ std::vector<Key> HeapSort_algorithm(unsigned size, std::vector<Key>& seq, bool t
 */
 
 template <class Key>
-void merge(std::vector<Key>& sec, int left, int middle, int right, bool trace) {
-    int l = left;
-    int m = middle + 1;
-    int n = right - left + 1;
-    std::vector<Key> temp(n);
-    for (int x = 0; x < n; x++) {
-        if (l > middle) {
-            temp[x] = sec[m];
-            m++;
+std::vector<Key> merge(std::vector<Key>& sec,
+                     typename std::vector<Key>::iterator ini, 
+                     typename std::vector<Key>::iterator cen, 
+                     typename std::vector<Key>::iterator fin, 
+                     bool trace) {
+
+    typename std::vector<Key>::iterator i = ini;
+    typename std::vector<Key>::iterator j = cen + 1;
+    typename std::vector<Key>::iterator k = ini;
+    std::vector<Key> aux;
+    
+    while((i <= cen) && (j <= fin)) {
+        if(*i < *j) {
+            aux.push_back(*i);
+            i++;
+        } else {
+            aux.push_back(*j);
+            j++;
         }
-        else if (m > right) {
-            temp[x] = sec[l];
-            l++;
-        }
-        else if (sec[l] < sec[m]) {
-            temp[x] = sec[l];
-            l++;
-        }
-        else {
-            temp[x] = sec[m];
-            m++;
-        }
+        k++;
     }
-    for (int x = 0; x < n; x++) {
-        sec[left] = temp[x];
-        left++;
-        
+
+    while(i <= cen) {
+            aux.push_back(*i);
+            i++;
+            k++;
     }
-    if(trace == true) {
+    while(j <= fin) {
+            aux.push_back(*j);
+           j++;
+           k++;
+    }
+
+    std::copy(aux.begin(), aux.end(), sec.begin() + (ini - sec.begin()));
+    if(trace) {
         for (int i = 0; i < sec.size(); i++) {
             std::cout << sec[i] << " ";
         }
         std::cout << std::endl;
     }
-
+    return sec;
 }
 
 template <typename Key>
-std::vector<Key> MergeSort_algorithm(unsigned size, std::vector<Key>& seq, bool trace) {
-    //int left = 0;
-    int middle = 0;
-    int right = 0;
-    int iterador = 0;
-    for (int subArrSize = 1; subArrSize < size; subArrSize = 2 * subArrSize) {
-        for (int left = 0; left < size - 1; left += 2 * subArrSize) {
-            middle = left + subArrSize - 1;
-            right = left + 2 * subArrSize - 1;
-            if (right >= size) {
-                right = size - 1;
-            }
-            if(trace) iterador++;
-            std::cout << "Iteration " << iterador <<": ";
-            merge(seq, left,middle, right, trace);
-        }
+std::vector<Key> MergeSort_algorithm(unsigned size, std::vector<Key>& seq,  typename std::vector<Key>::iterator ini, typename std::vector<Key>::iterator fin, bool trace) {
+    if (ini < fin) {
+        typename std::vector<Key>::iterator middle =  ini + (fin - ini) / 2;
+        MergeSort_algorithm(size, seq, ini, middle, trace);
+        MergeSort_algorithm(size, seq, middle + 1, fin, trace);
+        seq = merge(seq, ini, middle, fin, trace);
     }
+
     return seq;
 }
 
@@ -206,36 +239,60 @@ std::vector<Key> ShellSort_algorithm(unsigned size, std::vector<Key> seq, bool t
     std::cout << "Introducir el valor de alfa (entre 0 y 1): ";
     float gap;
     std::cin >> gap;
-   int iterador = 0;
-   //int contador = 0;
-    while (gap > 0) {
-        
+    int iterador = 0;
+    while (gap > 1) {
+            std::cout << "Delta = " << gap << std::endl;
         for (int i = gap; i < size; i++) {
             int temp = seq[i];
             int j = i;
             while (j >= gap && seq[j - gap] > temp) {
                 seq[j] = seq[j - gap];
                 j -= gap;
-                //contador++;
-                if (trace) iterador++;
-                std::cout << "Iteration " << iterador << " : ";
-                if(trace == true) {
-                    for(int i = 0; i < size; i++) {
-                        std::cout << seq[i] << " ";
-                    }
+                seq[j] = temp;
+                // print
+                    if(trace) iterador++;
+                    std::cout << "Iteration " << iterador-1 << " : ";
+                    for (int k = 0; k < size; k++) 
+                        std::cout << seq[k] << " ";
                     std::cout << std::endl;
-                 }
             }
-            seq[j] = temp;
-            //contador++;
+            
         }
         gap /= 2;
-        //contador++;
     }
-    
-            
-       
-    //std::cout << "Contador " << contador << std::endl;
-    
+
     return seq;
 }
+
+
+/*
+    QuickSort.h
+*/
+template <typename Key> 
+std::vector<Key> QuickSort_alg(std::vector<Key>& sec, int ini, int fin, bool trace) {
+    int i = ini;
+    int j = fin;
+    Key pivot = sec[(i + j) / 2];
+    std::cout << "Pivot: " << pivot << std::endl;
+    while (i <= j) {
+        while (sec[i] < pivot)  i++;
+        while (sec[j] > pivot) j--;
+        if (i <= j) {
+            std::swap(sec[i], sec[j]);
+            i++;
+            j--;
+        }
+
+        if(sec[i] != sec[j]) {
+                for (int i = 0; i < sec.size(); i++) 
+                    std::cout << sec[i] << " ";
+                std::cout << std::endl;
+        }
+    }
+
+    if (ini < j)  QuickSort_alg(sec, ini, j, trace);
+    if (i < fin)  QuickSort_alg(sec, i, fin, trace);
+   
+    return sec;
+}
+
